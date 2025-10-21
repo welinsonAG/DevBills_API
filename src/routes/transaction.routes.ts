@@ -5,6 +5,8 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import  { createTransactionSchema, getTransactionsSchema, getTransactionsSummarySchema, } from "../schemas/transaction.schema.js";
 import { getTransactions } from "../controllers/transactions/getTransactions.controller.js";
 import { getTransactionsSummary } from "../controllers/transactions/getTransactionsSummary.controller.js";
+import type { ZodTypeProvider } from "fastify-type-provider-zod";
+
 
 
 
@@ -29,11 +31,11 @@ schema:{
         },
         handler: getTransactions,
     });
-fastify.route({
+fastify.withTypeProvider<ZodTypeProvider>().route({
         method: "GET",
         url: "/summary",
         schema: {
-            querystring: zodToJsonSchema(getTransactionsSummarySchema)
+            querystring: (getTransactionsSummarySchema)
         },
      handler: getTransactionsSummary,
     });
