@@ -2,13 +2,13 @@ import { z } from 'zod'
 import { ObjectId } from 'mongodb'
 import { TransactionType } from '@prisma/client';
 
-const isValidObjectId = (id: string): boolean => ObjectId.isValid(id);
+const isValidObjectId = (id: string)  => ObjectId.isValid(id);
 
 
 export const createTransactionSchema = z.object({
     description: z.string().min(1, "Descrção obrigatória"),
     amount: z.number().positive("Valor deve ser Positivo"),
-    date: z.coerce.date({
+    date: z.string().refine(val => !isNaN(Date.parse(val)),{
         message: "Data inválida"
     }),
     categoryId: z.string().refine(isValidObjectId, {
