@@ -46,19 +46,24 @@ const transactionRoutes = async (fastify: FastifyInstance) => {
 
 
 
-    app.route({
+   /* app.route({
 
         method: "DELETE",
         url: "/:id",
         schema: {
             params: deleteTransactionSchema,
 
-        },
+       },
 
         handler: deleteTransaction,
 
-    })
-
-
+    })*/
+ app.route({
+    method: "DELETE",
+    url: "/:id",
+    handler: deleteTransaction,
+  })
 }
+
+
 export default transactionRoutes;

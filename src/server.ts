@@ -3,8 +3,11 @@ import app from "./app.js";
 import { prismaConnect } from "./config/prisma.js";
 import { inicializeGlobalCategories } from "./services/globalCategories.service.js";
 import { env } from "./config/env.js";
+import transactionRoutes from "./routes/transaction.routes.js";
 
 const PORT = env.PORT;
+
+app.register(transactionRoutes, { prefix: '/api' })
 
 const startServer = async () => {
 	try {
