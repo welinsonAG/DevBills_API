@@ -5,6 +5,8 @@ import type { GetTransactionsSummarySchema } from "../../schemas/transaction.sch
 import prisma from "../../config/prisma.js";
 import type { categorySummary } from "../../types/category.types.js";
 import { TransactionType } from "@prisma/client";
+import type { TransactionSummary } from "../../types/transaction.types.js";
+
 
 
 
@@ -63,18 +65,30 @@ export const getTransactionsSummary = async (
                     amount: 0,
                     percentage: 0,
                 }
-             
+
 
                 totalExpenses += transaction.amount
 
             } else {
                 totalIcomes += transaction.amount
             }
-        }
-console.log({groupedExpenses, totalIcomes, totalExpenses})
-        reply.send(transactions);
-    } catch (err) {
-        request.log.error("Erro ao traser transações");
-        reply.status(500).send({ error: "Erro do servidor" });
-    }
+            const summary: TransactionSummary = {
+                totalExpenses,
+                totalIcomes,
+                balance: Number((totalIcomes - totalExpenses).toFixed(2)),
+                expesesByCategory: Array.from(groupedExpenses.values()).map((entry) => ({
+                    ...entry,
+                    percentage: Number.parseFloat(((entry.amount / totalExpenses) * 100).toFixed(2)),
+                
+
+        })).sort((a, b) => b.amount - a.amount)
+    };
+
+        reply.send(summary);
+
+          }
+} catch (err) {
+    request.log.error("Erro ao traser transações");
+    reply.status(500).send({ error: "Erro do servidor" });
 }
+    }
