@@ -5,11 +5,11 @@ import prisma from "../config/prisma.js";
 
 import { ObjectId } from "bson";
 
-/*export const deleteTransaction = async (request: FastifyRequest<{ Params: DeleteTransactionParams }>,
+export const deleteTransaction = async (request: FastifyRequest<{ Params: DeleteTransactionParams }>,
     reply: FastifyReply,
 
 ): Promise<void> => {
-    const userId = "NDCUIHCNNSBCSK";
+    const userId = request.userId;
     const { id } = request.params as {id: string}
 
     if (!userId) {
@@ -41,9 +41,16 @@ if (!ObjectId.isValid(id)) {
         reply.status(500).send({ message: "Erro interno do servidor, falha ao deletar a transação" })
 
     }
-} */
+} 
 
-    export const deleteTransaction = async (
+
+
+
+
+
+
+
+   /* export const deleteTransaction = async (
   request: FastifyRequest<{ Params: { id: string } }>,
   reply: FastifyReply
 ) => {
@@ -74,4 +81,4 @@ if (!ObjectId.isValid(id)) {
     request.log.error(err) // log detalhado do erro
     return reply.status(500).send({ error: "Erro interno ao deletar transação" })
   }
-}
+}*/

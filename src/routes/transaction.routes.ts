@@ -10,8 +10,11 @@ import {
 import { getTransactions } from "../controllers/transactions/getTransactions.controller.js";
 import { getTransactionsSummary } from "../controllers/transactions/getTransactionsSummary.controller.js";
 import { deleteTransaction } from "../controllers/deleteTransaction.controller.js";
+import { authMiddleware } from "../middlewares/auth.middlewares.js";
 
 const transactionRoutes = async (fastify: FastifyInstance) => {
+
+    fastify.addHook('preHandler', authMiddleware)
     const app = fastify.withTypeProvider<ZodTypeProvider>();
 
     // POST /
@@ -46,7 +49,7 @@ const transactionRoutes = async (fastify: FastifyInstance) => {
 
 
 
-   /* app.route({
+   app.route({
 
         method: "DELETE",
         url: "/:id",
@@ -57,12 +60,7 @@ const transactionRoutes = async (fastify: FastifyInstance) => {
 
         handler: deleteTransaction,
 
-    })*/
- app.route({
-    method: "DELETE",
-    url: "/:id",
-    handler: deleteTransaction,
-  })
+    });
 }
 
 

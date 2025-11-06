@@ -4,7 +4,7 @@ import { createTransactionSchema } from "../../schemas/transaction.schema.js";
 
 
 const createTransaction = async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-    const userId = "NDCUIHCNNSBCSK"; // userId => request.userId
+    const userId = request.userId; // userId => request.userId
 
     
     if (!userId) {
@@ -37,7 +37,17 @@ console.log("📦 BODY RECEBIDO:", request.body);
             return;
         }
 
-        // Aqui você pode adicionar a lógica para criar a transação no banco de dados
+          // ✅ Agora criamos de fato a transação no banco
+    const createdTransaction = await prisma.transaction.create({
+      data: {
+        amount: transaction.amount,
+        description: transaction.description,
+        date: new Date(transaction.date),
+        type: transaction.type,
+        categoryId: transaction.categoryId,
+        userId, // 🔥 importante!
+      },
+    });// Aqui você pode adicionar a lógica para criar a transação no banco de dados
 
         reply.status(201).send({ message: "Transação criada com sucesso" }); // Resposta de sucesso
     } catch (err) {

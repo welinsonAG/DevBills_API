@@ -17,5 +17,5 @@ import type { categorySummary } from "./category.types.js";
     totalExpenses: number;
     totalIcomes: number;
     balance: number;
-    expesesByCategory: categorySummary[];
+    expensesByCategory: categorySummary[];
   }

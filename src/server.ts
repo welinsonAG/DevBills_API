@@ -4,9 +4,10 @@ import { prismaConnect } from "./config/prisma.js";
 import { inicializeGlobalCategories } from "./services/globalCategories.service.js";
 import { env } from "./config/env.js";
 import transactionRoutes from "./routes/transaction.routes.js";
+import initializeFirebaseAdmin from "./config/firebase.js";
 
 const PORT = env.PORT;
-
+initializeFirebaseAdmin();
 app.register(transactionRoutes, { prefix: '/api' })
 
 const startServer = async () => {
