@@ -15,7 +15,7 @@ import type { categorySummary } from "./category.types.js";
 
   export interface TransactionSummary{
     totalExpenses: number;
-    totalIcomes: number;
+    totalIncomes: number;
     balance: number;
     expensesByCategory: categorySummary[];
   }

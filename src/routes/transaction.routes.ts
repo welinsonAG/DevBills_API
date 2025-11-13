@@ -4,6 +4,7 @@ import createTransaction from "../controllers/transactions/createTransaction.con
 import {
     createTransactionSchema,
     deleteTransactionSchema,
+    getHistoricalTransactionsSchema,
     getTransactionsSchema,
     getTransactionsSummarySchema
 } from "../schemas/transaction.schema.js";
@@ -11,6 +12,7 @@ import { getTransactions } from "../controllers/transactions/getTransactions.con
 import { getTransactionsSummary } from "../controllers/transactions/getTransactionsSummary.controller.js";
 import { deleteTransaction } from "../controllers/deleteTransaction.controller.js";
 import { authMiddleware } from "../middlewares/auth.middlewares.js";
+import { getHistoricalTransactions } from "../controllers/transactions/getHistoricalTransactions.controller.js";
 
 const transactionRoutes = async (fastify: FastifyInstance) => {
 
@@ -47,7 +49,15 @@ const transactionRoutes = async (fastify: FastifyInstance) => {
         handler: getTransactionsSummary,
     });
 
-
+//HISTORICO DE TRANSACOES
+ fastify.route({
+        method: "GET",
+        url: "/historical",
+        schema: {
+            querystring: getHistoricalTransactionsSchema, // ✅ direto
+        },
+        handler: getHistoricalTransactions,
+    });
 
    app.route({
 

@@ -47,7 +47,15 @@ export const getTransactionsSummary = async (
       },
       
     });
-    
+    console.log(
+  "🧩 Transações encontradas:",
+  transactions.map(t => ({
+    id: t.id,
+    categoryId: t.categoryId,
+    category: t.category ? t.category.name : null
+  }))
+);
+
 
     let totalExpenses = 0;
     let totalIncomes = 0;
@@ -74,7 +82,7 @@ export const getTransactionsSummary = async (
 
     const summary: TransactionSummary = {
       totalExpenses,
-      totalIcomes: totalIncomes,
+      totalIncomes: totalIncomes,
       balance: Number((totalIncomes - totalExpenses).toFixed(2)),
       expensesByCategory: Array.from(groupedExpenses.values())
         .map((entry) => ({
