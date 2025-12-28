@@ -9,7 +9,10 @@ export const getCategories = async(request: FastifyRequest, reply: FastifyReply,
 
         });
 
-        reply.send(categories)
+        reply.send(categories.map(category => ({
+          ...category,
+            type: category.type.toLowerCase() as "income" | "expense",
+        })));
     }catch (err) { 
 
         }

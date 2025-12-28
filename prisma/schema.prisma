@@ -5,8 +5,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider= "mongodb"
+  url= env("DATABASE_URL")
 }
 enum TransactionType {
  income

@@ -14,7 +14,7 @@ const startServer = async () => {
 	try {
 		await prismaConnect()
 
-		await inicializeGlobalCategories()
+	/*	await inicializeGlobalCategories() */
 
 		await app.listen({ port: PORT }).then(() => { 
 		console.log(`✅ Server listening on port ${PORT}`);
